@@ -5,7 +5,6 @@ A multi-clinic dental practice SaaS: a native **Android app** (Java 17, MVVM, Ro
 | Document | What it is |
 |---|---|
 | [PRD.md](PRD.md) | Product requirements: scope, schema, API, security, milestones (source of truth) |
-| [CLAUDE.md](CLAUDE.md) | Project rules, fixed decisions, commands, **current status and remaining work** |
 | [docs/report.md](docs/report.md) | Mini-project report: architecture, syllabus mapping, testing, security |
 | [docs/viva-notes.md](docs/viva-notes.md) | Likely viva questions with short answers |
 | [docs/demo-script.md](docs/demo-script.md) | Walkthrough that shows every lab experiment |
@@ -135,4 +134,10 @@ Demo script, report and viva notes, mapping all 20 lab experiments and 5 course 
 - [ ] Beta clinics.
 
 ## Conventions
-Rules, fixed technical decisions and commands live in [CLAUDE.md](CLAUDE.md). In short: one milestone at a time, every database change is a Flyway migration, permissions are enforced on the server, no patient data in logs or notifications, dummy data only, and secrets only in environment variables.
+- Work one milestone at a time; the acceptance criteria for each are in [PRD.md](PRD.md).
+- Every database change is a Flyway migration, and every Room schema change has a tested migration.
+- Permissions are enforced on the server, never only in the UI.
+- No patient data in logs, SMS or push notifications.
+- Money is stored as integer paise, IDs are UUIDv7, and timestamps are UTC.
+- Payments, chart records and audit events are append-only.
+- Dummy data only; secrets live in environment variables (see `.env.example`), never in the repo.
