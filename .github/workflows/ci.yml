@@ -25,15 +25,12 @@ jobs:
       - name: Android unit tests and debug build
         run: ./gradlew :android:app:testDebugUnitTest :android:app:assembleDebug
       # Dependency scan (PRD 16): fails on HIGH/CRITICAL in the gradle.lockfile files; accepted ones live in .trivyignore.
+      # Run as a plain Docker image, the same command used locally: no third-party action to go missing.
       - name: Dependency scan
-        uses: aquasecurity/trivy-action@v0.28.0
-        with:
-          scan-type: fs
-          scanners: vuln
-          severity: HIGH,CRITICAL
-          exit-code: '1'
-          trivyignores: .trivyignore
-          skip-dirs: build,.gradle
+        run: >
+          docker run --rm -v "$PWD:/src:ro" aquasec/trivy:0.58.1
+          fs --scanners vuln --severity HIGH,CRITICAL --exit-code 1
+          --ignorefile /src/.trivyignore --skip-dirs "**/build" --skip-dirs .gradle /src
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
