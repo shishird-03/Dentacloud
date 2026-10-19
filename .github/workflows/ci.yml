@@ -16,6 +16,9 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+      # gradlew is committed from Windows without the executable bit.
+      - name: Make gradlew executable
+        run: chmod +x gradlew
       # Testcontainers uses the runner's Docker; the Android SDK is preinstalled on ubuntu-latest.
       - name: Backend tests
         run: ./gradlew :backend:test
@@ -23,7 +26,7 @@ jobs:
         run: ./gradlew :android:app:testDebugUnitTest :android:app:assembleDebug
       # Dependency scan (PRD 16): fails on HIGH/CRITICAL in the gradle.lockfile files; accepted ones live in .trivyignore.
       - name: Dependency scan
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.28.0
         with:
           scan-type: fs
           scanners: vuln
