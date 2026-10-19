@@ -1,0 +1,19 @@
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.spring.boot) apply false
+    alias(libs.plugins.spring.dm) apply false
+    alias(libs.plugins.openapi.generator) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+}
+
+// Lock what ships (runtime classpaths): reproducible builds, and Trivy scans the gradle.lockfile files.
+// After changing a dependency: ./gradlew :backend:dependencies :android:app:dependencies --write-locks
+subprojects {
+    configurations.configureEach {
+        if (name == 'runtimeClasspath' || name == 'releaseRuntimeClasspath') {
+            resolutionStrategy.activateDependencyLocking()
+        }
+    }
+}

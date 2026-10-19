@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark theme for dim operatories -->
+<resources>
+    <color name="primary">#5EEAD4</color>
+    <color name="on_primary">#042F2E</color>
+    <color name="primary_container">#115E59</color>
+    <color name="on_primary_container">#CCFBF1</color>
+    <color name="surface">#111827</color>
+    <color name="on_surface">#E5E7EB</color>
+    <color name="surface_variant">#1F2937</color>
+    <color name="on_surface_variant">#9CA3AF</color>
+    <color name="outline">#374151</color>
+    <color name="error">#F87171</color>
+
+    <color name="banner_warning">#78350F</color>
+    <color name="on_banner_warning">#FEF3C7</color>
+    <color name="cond_sound">#E5E7EB</color>
+</resources>

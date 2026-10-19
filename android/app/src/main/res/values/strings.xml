@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DentaCloud</string>
+
+    <!-- Navigation -->
+    <string name="nav_today">Today</string>
+    <string name="nav_patients">Patients</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_appointments">Appointments</string>
+    <string name="nav_more">More</string>
+
+    <!-- Auth -->
+    <string name="login">Log in</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="demo_hint">The offline demo runs entirely on this phone, with no server needed. Real clinics sync across devices.</string>
+    <string name="create_clinic">New here? Create a clinic</string>
+    <string name="try_demo">Try the offline demo</string>
+    <string name="signup_title">Create your clinic</string>
+    <string name="clinic_name">Clinic name</string>
+    <string name="your_name">Your name</string>
+    <string name="phone_optional">Phone (optional)</string>
+    <string name="password_hint">Password (8+ characters)</string>
+    <string name="create">Create clinic</string>
+    <string name="session_expired">Your session ended. Please log in again.</string>
+    <string name="sync_synced">Synced</string>
+    <string name="sync_syncing">Syncing…</string>
+    <string name="sync_offline">Offline (%1$d pending)</string>
+    <string name="sync_offline_none">Offline</string>
+    <string name="sync_attention">Needs attention</string>
+    <string name="sync_demo">Offline demo</string>
+    <string name="sync_requested">Syncing now</string>
+    <string name="logout">Log out</string>
+    <string name="logout_message">You will need to log in again. Unsynced changes stay on this device.</string>
+    <string name="signed_in_as">%1$s\n%2$s · %3$s</string>
+
+    <!-- Dashboard -->
+    <string name="greeting">Hello, %1$s</string>
+    <string name="stat_appointments_today">Appointments today</string>
+    <string name="stat_waiting">Waiting</string>
+    <string name="stat_new_patients">New patients this week</string>
+    <string name="todays_schedule">Today\'s schedule</string>
+    <string name="no_appointments_today">No appointments today</string>
+    <string name="battery_low">Battery low: plug in the tablet to keep reminders running</string>
+
+    <!-- Patients -->
+    <string name="patient">Patient</string>
+    <string name="search_patients">Search name, phone or patient ID</string>
+    <string name="no_patients">No patients yet. Tap New patient to register one.</string>
+    <string name="new_patient">New patient</string>
+    <string name="register_step1">New patient (1/2)</string>
+    <string name="register_step2">New patient (2/2)</string>
+    <string name="step_1_of_2">Step 1 of 2: basic details</string>
+    <string name="step_2_of_2">Step 2 of 2: contact, history and photo</string>
+    <string name="full_name">Full name</string>
+    <string name="phone">Phone</string>
+    <string name="pick_dob">Date of birth</string>
+    <string name="dob_value">Born %1$s</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+    <string name="medical_history">Medical history</string>
+    <string name="allergies">Allergies</string>
+    <string name="patient_photo">Patient photo</string>
+    <string name="take_photo">Take photo</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="save_patient">Save patient</string>
+    <string name="patient_saved">Saved as %1$s</string>
+    <string name="required">Required</string>
+    <string name="invalid_phone">Enter 7 to 15 digits</string>
+    <string name="duplicate_warning">Already registered: %1$s</string>
+    <string name="allergy_alert">Allergy: %1$s</string>
+    <string name="history_alert">History: %1$s</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="change_color">Change card color</string>
+    <string name="delete_patient_title">Delete patient?</string>
+    <string name="delete_patient_message">%1$s will be hidden from lists. Clinical and billing history is kept.</string>
+    <string name="call">Call</string>
+    <string name="sms_reminder">SMS</string>
+    <string name="sms_reminder_body">Reminder from %1$s: your appointment is on %2$s. Reply or call us to reschedule.</string>
+    <string name="sms_generic_body">Hello from %1$s. Please call us to book your next visit.</string>
+    <string name="no_app_for_action">No app on this device can do that</string>
+    <string name="appointments">Appointments</string>
+    <string name="invoices">Invoices</string>
+    <string name="invoice_row">%1$s · %2$s · %3$s · %4$s</string>
+
+    <!-- Appointments -->
+    <string name="appointment">Appointment</string>
+    <string name="book">Book</string>
+    <string name="book_appointment">Book appointment</string>
+    <string name="procedure">Procedure</string>
+    <string name="reason">Notes for the front desk</string>
+    <string name="booked_toast">Booked for %1$s</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="week_of">Week of %1$s</string>
+    <string name="no_appointments">No appointments</string>
+    <string name="color_changed">Color label changed</string>
+    <string name="update_status">Update status</string>
+    <string name="status_arrived">Arrived</string>
+    <string name="status_in_chair">In chair</string>
+    <string name="status_done">Done</string>
+    <string name="status_no_show">No-show</string>
+    <string name="cancel_appointment">Cancel appointment</string>
+    <string name="cancel_appointment_message">The slot will be freed for other patients.</string>
+
+    <!-- Billing -->
+    <string name="billing">Billing</string>
+    <string name="bill">Bill</string>
+    <string name="procedures_done">Procedures done</string>
+    <string name="procedure_price">%1$s  (%2$s)</string>
+    <string name="show_total">Show total</string>
+    <string name="estimated_total">Estimated total: %1$s</string>
+    <string name="discount_rupees">Discount (₹)</string>
+    <string name="invalid_amount">Enter a valid amount</string>
+    <string name="bill_summary">Subtotal  %1$s\nDiscount -%2$s\nTax      +%3$s\nTotal     %4$s</string>
+    <string name="issue_invoice">Issue invoice</string>
+    <string name="invoice_issued">%1$s issued for %2$s</string>
+    <string name="calculator">Calculator</string>
+    <string name="amount_a">Amount A</string>
+    <string name="amount_b">Amount B</string>
+    <string name="op_add">+</string>
+    <string name="op_sub">−</string>
+    <string name="op_mul">×</string>
+    <string name="op_div">÷</string>
+    <string name="op_clear">C</string>
+    <string name="calc_result">= ₹%1$s</string>
+    <string name="use_as_discount">Use as discount</string>
+
+    <!-- Clinical and billing (M4) -->
+    <string name="chart">Chart</string>
+    <string name="dental_chart">Dental chart</string>
+    <string name="chart_description">Dental chart. Tap a tooth surface to select it.</string>
+    <string name="adult">Adult</string>
+    <string name="child">Child</string>
+    <string name="tap_a_tooth">Tap a tooth surface</string>
+    <string name="tap_a_tooth_first">Tap a tooth surface first, then a condition</string>
+    <string name="tooth_surface">Tooth %1$d · surface %2$s</string>
+    <string name="chart_history">Chart history</string>
+    <string name="chart_now">Showing the chart today</string>
+    <string name="chart_as_of">Showing the chart as of %1$s</string>
+    <string name="tooth_history">History of the selected tooth</string>
+    <string name="tooth_history_row">%1$s · %2$s · %3$s</string>
+    <string name="whole_tooth">whole tooth</string>
+    <string name="visit">Visit</string>
+    <string name="new_visit">Visit</string>
+    <string name="complaint">Chief complaint</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="visit_notes">Notes</string>
+    <string name="quick_phrases">Quick phrases</string>
+    <string name="save_visit">Save visit</string>
+    <string name="visit_saved">Visit saved</string>
+    <string name="open_chart">Open chart</string>
+    <string name="prescribe">Prescribe</string>
+    <string name="plans">Plan</string>
+    <string name="treatment_plans">Treatment plans</string>
+    <string name="new_plan">New plan</string>
+    <string name="untitled_plan">Treatment plan</string>
+    <string name="plan_title_default">Plan %1$d</string>
+    <string name="no_plans">No plan yet. Tap New plan.</string>
+    <string name="plan_status">%1$s · estimate %2$s</string>
+    <string name="plan_progress">" · %1$d of %2$d done"</string>
+    <string name="plan_item_row">%1$s%2$s · %3$s · %4$s</string>
+    <string name="tooth_prefix">"Tooth %1$d · "</string>
+    <string name="add_item">Add treatment</string>
+    <string name="tooth_fdi">Tooth (FDI)</string>
+    <string name="estimate_rupees">Estimate (₹)</string>
+    <string name="add">Add</string>
+    <string name="accept_plan">Accept plan</string>
+    <string name="defer_selected">Defer selected</string>
+    <string name="mark_done">Mark done</string>
+    <string name="invoice_selected">Invoice selected</string>
+    <string name="select_items_first">Select items first</string>
+    <string name="create_plan_first">Create a plan first</string>
+    <string name="bad_tooth">Not an FDI tooth number</string>
+    <string name="already_billed">Those items are already billed</string>
+    <string name="invoice">Invoice</string>
+    <string name="invoice_title">%1$s · %2$s</string>
+    <string name="invoice_summary">Subtotal  %1$s\nDiscount -%2$s\nTax      +%3$s\nTotal     %4$s\nPaid      %5$s\nBalance   %6$s</string>
+    <string name="line_row">%1$d × %2$s · %3$s</string>
+    <string name="payments">Payments</string>
+    <string name="no_payments">No payments yet</string>
+    <string name="payment_row">%1$s · %2$s · %3$s</string>
+    <string name="refund_row">%1$s · refund %2$s · −%3$s</string>
+    <string name="amount_rupees">Amount (₹)</string>
+    <string name="payment_reference">Reference (UPI ref, card last 4)</string>
+    <string name="mode_cash">Cash</string>
+    <string name="mode_upi">UPI</string>
+    <string name="mode_card">Card</string>
+    <string name="mode_bank">Bank</string>
+    <string name="record_payment">Record payment</string>
+    <string name="refund">Refund</string>
+    <string name="refund_confirm">Refund ₹%1$s? Refunds are permanent entries in the ledger.</string>
+    <string name="share_receipt">Share receipt PDF</string>
+    <string name="prescription">Prescription</string>
+    <string name="favourites">Favourites</string>
+    <string name="drug">Drug</string>
+    <string name="dose">Dose</string>
+    <string name="days">Days</string>
+    <string name="frequency">How often</string>
+    <string name="add_drug">Add drug</string>
+    <string name="add_a_drug">Add at least one drug</string>
+    <string name="rx_notes">Advice for the patient</string>
+    <string name="issue_and_share">Issue and share PDF</string>
+    <string name="rx_item_row">%1$s · %2$s · %3$s · %4$s days</string>
+    <string name="remove_drug">Remove drug?</string>
+
+    <!-- Reminders, maps, platform topics (M5) -->
+    <string name="stat_collected_today">Collected today</string>
+    <string name="stat_dues">Pending dues</string>
+    <string name="chairside_reminders">Chair-side reminders (15 min before each appointment)</string>
+    <string name="todays_schedule_hint">Today\'s schedule · long-press to check in</string>
+    <string name="checked_in">Checked in</string>
+    <string name="notifications_denied">Reminders need notification permission. You can allow it in system settings.</string>
+    <string name="channel_reminders">Appointment reminders</string>
+    <string name="channel_service">Reminder service</string>
+    <string name="reminder_title">Upcoming appointment</string>
+    <string name="reminder_text">Appointment at %1$s · tap to open</string>
+    <string name="service_title">Watching today\'s appointments</string>
+    <string name="service_text">You\'ll get a reminder 15 minutes before each one</string>
+    <string name="clinic_location">Clinic location</string>
+    <string name="navigate">Navigate</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="save">Save</string>
+    <string name="location_saved">Location saved</string>
+    <string name="bad_location">Enter a valid latitude and longitude</string>
+    <string name="dental_tips">Dental care tips</string>
+    <string name="lab_title">Lab: AsyncTask demo</string>
+    <string name="lab_intro">MAD lab Part B #2: counts from 1 to 1000 on a background thread and shows progress. The rest of the app uses ExecutorService and WorkManager instead of AsyncTask.</string>
+    <string name="lab_start">Start counting</string>
+    <string name="lab_test_crash">Send a test crash to Crashlytics</string>
+    <string name="lab_count">Count: %1$d</string>
+    <string name="lab_done">Done: counted to %1$d</string>
+    <string name="data_export">Data export (owner)</string>
+    <string name="export_patients">Export patients (CSV)</string>
+    <string name="export_failed">Export failed</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="clinic">Clinic</string>
+    <string name="theme">Theme</string>
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark (for dim rooms)</string>
+    <string name="reset_ui_prefs">Reset display preferences</string>
+    <string name="security">Security</string>
+    <string name="app_lock">App lock (fingerprint, face or screen lock)</string>
+    <string name="app_lock_unavailable">Set a screen lock on this device to use app lock.</string>
+    <string name="app_locked">DentaCloud is locked</string>
+    <string name="unlock">Unlock</string>
+    <string name="unlock_title">Unlock DentaCloud</string>
+    <string name="prefs_reset">Preferences cleared</string>
+
+    <string-array name="genders">
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+</resources>

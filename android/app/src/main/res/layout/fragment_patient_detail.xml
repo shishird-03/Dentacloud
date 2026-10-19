@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Part A #10: the captured photo becomes the profile header background -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/primary">
+
+            <ImageView
+                android:id="@+id/header_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.45"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="@dimen/space_4">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:textColor="@color/on_primary" />
+
+                <TextView
+                    android:id="@+id/meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/on_primary" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/alerts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/banner_warning"
+            android:padding="@dimen/space_3"
+            android:textColor="@color/on_banner_warning"
+            android:visibility="gone" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/actions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/call"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/call"
+                    app:icon="@drawable/ic_call" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sms"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/sms_reminder"
+                    app:icon="@drawable/ic_sms" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/book"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/book"
+                    app:icon="@drawable/ic_calendar" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/bill"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/bill" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/chart"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/chart" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/visit"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/new_visit" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/plan"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/plans" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/rx"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch"
+                    android:layout_margin="@dimen/space_1"
+                    android:text="@string/prescribe" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_3"
+            android:text="@string/appointments" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appointments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <TextView
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_3"
+            android:text="@string/invoices" />
+
+        <LinearLayout
+            android:id="@+id/invoices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/space_4"
+            android:paddingBottom="@dimen/space_6" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

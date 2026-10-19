@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 4dp grid, 8dp radius, 48dp touch targets (PRD 12) -->
+<resources>
+    <dimen name="space_1">4dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_6">24dp</dimen>
+    <dimen name="radius">8dp</dimen>
+    <dimen name="touch">48dp</dimen>
+</resources>

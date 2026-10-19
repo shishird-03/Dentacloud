@@ -1,0 +1,1818 @@
+openapi: 3.1.0
+info:
+  title: DentaCloud API
+  version: v1
+servers:
+- url: /
+security:
+- bearer: []
+paths:
+  /api/v1/appointments:
+    get:
+      operationId: appointmentList
+      parameters:
+      - in: query
+        name: from
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: to
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: dentistId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppointmentDto"
+          description: OK
+      tags:
+      - appointment-controller
+    post:
+      operationId: appointmentCreate
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AppointmentDto"
+          description: Created
+      tags:
+      - appointment-controller
+  /api/v1/appointments/{id}/reschedule:
+    post:
+      operationId: appointmentReschedule
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reschedule"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AppointmentDto"
+          description: OK
+      tags:
+      - appointment-controller
+  /api/v1/appointments/{id}/status:
+    patch:
+      operationId: appointmentStatus
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatusChange"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AppointmentDto"
+          description: OK
+      tags:
+      - appointment-controller
+  /api/v1/audit-events:
+    get:
+      operationId: auditList
+      parameters:
+      - in: query
+        name: afterId
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 200
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuditEventDto"
+          description: OK
+      tags:
+      - audit-controller
+  /api/v1/audit-events/verify:
+    get:
+      operationId: auditVerify
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Verification"
+          description: OK
+      tags:
+      - audit-controller
+  /api/v1/auth/login:
+    post:
+      operationId: authLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+          description: OK
+      tags:
+      - auth-controller
+  /api/v1/auth/logout:
+    post:
+      operationId: authLogout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+        required: true
+      responses:
+        "204":
+          description: No Content
+      tags:
+      - auth-controller
+  /api/v1/auth/refresh:
+    post:
+      operationId: authRefresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+          description: OK
+      tags:
+      - auth-controller
+  /api/v1/auth/signup:
+    post:
+      operationId: authSignup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+          description: Created
+      tags:
+      - auth-controller
+  /api/v1/clinic:
+    get:
+      operationId: clinicGet
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClinicDto"
+          description: OK
+      tags:
+      - clinic-controller
+    patch:
+      operationId: clinicPatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClinicPatch"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ClinicDto"
+          description: OK
+      tags:
+      - clinic-controller
+  /api/v1/clinic/chairs:
+    get:
+      operationId: clinicChairs
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChairDto"
+          description: OK
+      tags:
+      - clinic-controller
+    post:
+      operationId: clinicAddChair
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewChair"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ChairDto"
+          description: Created
+      tags:
+      - clinic-controller
+  /api/v1/clinic/members:
+    get:
+      operationId: clinicMembers
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MemberDto"
+          description: OK
+      tags:
+      - clinic-controller
+    post:
+      operationId: clinicAddMember
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewMember"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MemberDto"
+          description: Created
+      tags:
+      - clinic-controller
+  /api/v1/clinic/roles:
+    get:
+      operationId: clinicRoles
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoleDto"
+          description: OK
+      tags:
+      - clinic-controller
+  /api/v1/devices/fcm-token:
+    post:
+      operationId: deviceRegister
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FcmToken"
+        required: true
+      responses:
+        "204":
+          description: No Content
+      tags:
+      - device-controller
+  /api/v1/invoices:
+    post:
+      operationId: invoiceIssue
+      parameters:
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewInvoice"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InvoiceDto"
+          description: Created
+      tags:
+      - invoice-controller
+  /api/v1/invoices/{id}:
+    get:
+      operationId: invoiceGet
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InvoiceDto"
+          description: OK
+      tags:
+      - invoice-controller
+  /api/v1/invoices/{id}/payments:
+    get:
+      operationId: invoicePayments
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PaymentDto"
+          description: OK
+      tags:
+      - invoice-controller
+    post:
+      operationId: invoicePay
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PaymentDto"
+          description: Created
+      tags:
+      - invoice-controller
+  /api/v1/invoices/{id}/refunds:
+    post:
+      operationId: invoiceRefund
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PaymentDto"
+          description: Created
+      tags:
+      - invoice-controller
+  /api/v1/patients:
+    get:
+      operationId: patientList
+      parameters:
+      - in: query
+        name: q
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Page"
+          description: OK
+      tags:
+      - patient-controller
+    post:
+      operationId: patientCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatientDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PatientDto"
+          description: Created
+      tags:
+      - patient-controller
+  /api/v1/patients/{id}:
+    get:
+      operationId: patientGet
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PatientDto"
+          description: OK
+      tags:
+      - patient-controller
+    patch:
+      operationId: patientUpdate
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatientDto"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PatientDto"
+          description: OK
+      tags:
+      - patient-controller
+  /api/v1/patients/{patientId}/chart:
+    get:
+      operationId: clinicalChart
+      parameters:
+      - in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ToothRecordDto"
+          description: OK
+      tags:
+      - clinical-controller
+  /api/v1/patients/{patientId}/chart/records:
+    post:
+      operationId: clinicalAddRecords
+      parameters:
+      - in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ToothRecordDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ToothRecordDto"
+          description: Created
+      tags:
+      - clinical-controller
+  /api/v1/patients/{patientId}/invoices:
+    get:
+      operationId: invoiceForPatient
+      parameters:
+      - in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InvoiceDto"
+          description: OK
+      tags:
+      - invoice-controller
+  /api/v1/patients/{patientId}/prescriptions:
+    get:
+      operationId: prescriptionsForPatient
+      parameters:
+      - in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RxDto"
+          description: OK
+      tags:
+      - prescriptions
+  /api/v1/patients/{patientId}/treatment-plans:
+    get:
+      operationId: clinicalPlans
+      parameters:
+      - in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlanDto"
+          description: OK
+      tags:
+      - clinical-controller
+  /api/v1/patients/{patientId}/visits:
+    get:
+      operationId: clinicalVisits
+      parameters:
+      - in: path
+        name: patientId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VisitDto"
+          description: OK
+      tags:
+      - clinical-controller
+  /api/v1/plan-items/{id}:
+    patch:
+      operationId: clinicalPlanItem
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanItemPatch"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PlanDto"
+          description: OK
+      tags:
+      - clinical-controller
+  /api/v1/prescriptions:
+    post:
+      operationId: prescriptionsIssue
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RxDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RxDto"
+          description: Created
+      tags:
+      - prescriptions
+  /api/v1/prescriptions/{id}:
+    get:
+      operationId: prescriptionsGet
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RxDto"
+          description: OK
+      tags:
+      - prescriptions
+  /api/v1/procedures:
+    get:
+      operationId: procedureList
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProcedureDto"
+          description: OK
+      tags:
+      - procedure-catalog
+  /api/v1/reports/daily-collection:
+    get:
+      operationId: reportDailyCollection
+      parameters:
+      - in: query
+        name: date
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DailyCollection"
+          description: OK
+      tags:
+      - report-controller
+  /api/v1/reports/dues:
+    get:
+      operationId: reportDues
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Dues"
+          description: OK
+      tags:
+      - report-controller
+  /api/v1/sync/pull:
+    get:
+      operationId: syncPull
+      parameters:
+      - in: query
+        name: since
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 500
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PullResponse"
+          description: OK
+      tags:
+      - sync-controller
+  /api/v1/sync/push:
+    post:
+      operationId: syncPush
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PushRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PushResponse"
+          description: OK
+      tags:
+      - sync-controller
+  /api/v1/treatment-plans:
+    post:
+      operationId: clinicalSavePlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PlanDto"
+          description: Created
+      tags:
+      - clinical-controller
+  /api/v1/treatment-plans/{id}:
+    patch:
+      operationId: clinicalPlanStatus
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanStatus"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PlanDto"
+          description: OK
+      tags:
+      - clinical-controller
+  /api/v1/treatment-plans/{id}/invoice:
+    post:
+      operationId: clinicalInvoicePlan
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InvoicePlan"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/InvoiceDto"
+          description: Created
+      tags:
+      - clinical-controller
+  /api/v1/visits:
+    post:
+      operationId: clinicalSaveVisit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisitDto"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/VisitDto"
+          description: Created
+      tags:
+      - clinical-controller
+  /api/v1/visits/{id}:
+    get:
+      operationId: clinicalVisit
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/VisitDto"
+          description: OK
+      tags:
+      - clinical-controller
+components:
+  schemas:
+    AppointmentDto:
+      type: object
+      properties:
+        chairId:
+          type: string
+          format: uuid
+        clinicId:
+          type: string
+          format: uuid
+        colorLabel:
+          type: integer
+          format: int32
+        dentistId:
+          type: string
+          format: uuid
+        endAt:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        patientId:
+          type: string
+          format: uuid
+        procedureId:
+          type: string
+          format: uuid
+        reason:
+          type: string
+          maxLength: 500
+          minLength: 0
+        startAt:
+          type: integer
+          format: int64
+        status:
+          type: string
+        updatedAt:
+          type: integer
+          format: int64
+        version:
+          type: integer
+          format: int32
+      required:
+      - dentistId
+      - patientId
+    AuditEventDto:
+      type: object
+      properties:
+        action:
+          type: string
+        actorId:
+          type: string
+          format: uuid
+        details:
+          type: object
+          additionalProperties: {}
+        hash:
+          type: string
+        id:
+          type: integer
+          format: int64
+        occurredAt:
+          type: string
+          format: date-time
+        resourceId:
+          type: string
+          format: uuid
+        resourceType:
+          type: string
+    AuthResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        clinicId:
+          type: string
+          format: uuid
+        clinicName:
+          type: string
+        expiresIn:
+          type: integer
+          format: int64
+        memberId:
+          type: string
+          format: uuid
+        refreshToken:
+          type: string
+        role:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        userId:
+          type: string
+          format: uuid
+        userName:
+          type: string
+    ChairDto:
+      type: object
+      properties:
+        active:
+          type: boolean
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    Change:
+      type: object
+      properties:
+        data: {}
+        entity:
+          type: string
+        id:
+          type: string
+          format: uuid
+        seq:
+          type: integer
+          format: int64
+    ClinicDto:
+      type: object
+      properties:
+        currency:
+          type: string
+        email:
+          type: string
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+        timezone:
+          type: string
+    ClinicPatch:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          maxLength: 120
+          minLength: 1
+        phone:
+          type: string
+    DailyCollection:
+      type: object
+      properties:
+        collectedPaise:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        payments:
+          type: integer
+          format: int32
+        refundedPaise:
+          type: integer
+          format: int64
+    Dues:
+      type: object
+      properties:
+        duePaise:
+          type: integer
+          format: int64
+        openInvoices:
+          type: integer
+          format: int32
+    FcmToken:
+      type: object
+      properties:
+        token:
+          type: string
+          maxLength: 4096
+          minLength: 0
+      required:
+      - token
+    InvoiceDto:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        discountPaise:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        invoiceNo:
+          type: string
+        issuedAt:
+          type: integer
+          format: int64
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/InvoiceLineDto"
+        paidPaise:
+          type: integer
+          format: int64
+        patientId:
+          type: string
+          format: uuid
+        status:
+          type: string
+        subtotalPaise:
+          type: integer
+          format: int64
+        taxPaise:
+          type: integer
+          format: int64
+        totalPaise:
+          type: integer
+          format: int64
+    InvoiceLineDto:
+      type: object
+      properties:
+        amountPaise:
+          type: integer
+          format: int64
+        description:
+          type: string
+          maxLength: 200
+          minLength: 0
+        id:
+          type: string
+          format: uuid
+        invoiceId:
+          type: string
+          format: uuid
+        planItemId:
+          type: string
+          format: uuid
+        qty:
+          type: integer
+          format: int32
+          minimum: 1
+        taxBasisPoints:
+          type: integer
+          format: int32
+      required:
+      - description
+    InvoicePlan:
+      type: object
+      properties:
+        discountPaise:
+          type: integer
+          format: int64
+        itemIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+    ItemDto:
+      type: object
+      properties:
+        dose:
+          type: string
+          maxLength: 60
+          minLength: 0
+        drugName:
+          type: string
+          maxLength: 120
+          minLength: 0
+        durationDays:
+          type: integer
+          format: int32
+        frequency:
+          type: string
+          maxLength: 60
+          minLength: 0
+        id:
+          type: string
+          format: uuid
+        instructions:
+          type: string
+          maxLength: 300
+          minLength: 0
+        prescriptionId:
+          type: string
+          format: uuid
+      required:
+      - drugName
+    JsonNode: {}
+    LoginRequest:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        deviceId:
+          type: string
+        deviceName:
+          type: string
+        email:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+      required:
+      - email
+      - password
+    MemberDto:
+      type: object
+      properties:
+        color:
+          type: string
+        email:
+          type: string
+        fullName:
+          type: string
+        id:
+          type: string
+          format: uuid
+        isDentist:
+          type: boolean
+        role:
+          type: string
+        roleId:
+          type: string
+          format: uuid
+        status:
+          type: string
+        userId:
+          type: string
+          format: uuid
+    NewChair:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 40
+          minLength: 0
+      required:
+      - name
+    NewInvoice:
+      type: object
+      properties:
+        discountPaise:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/InvoiceLineDto"
+          minItems: 1
+        patientId:
+          type: string
+          format: uuid
+      required:
+      - lines
+      - patientId
+    NewMember:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+        fullName:
+          type: string
+          minLength: 1
+        isDentist:
+          type: boolean
+        registrationNo:
+          type: string
+        roleId:
+          type: string
+          format: uuid
+        tempPassword:
+          type: string
+          maxLength: 2147483647
+          minLength: 8
+      required:
+      - email
+      - fullName
+      - roleId
+      - tempPassword
+    Page:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/PatientDto"
+        nextCursor:
+          type: string
+          format: uuid
+    PatientDto:
+      type: object
+      properties:
+        address:
+          type: string
+          maxLength: 500
+          minLength: 0
+        allergies:
+          type: string
+          maxLength: 1000
+          minLength: 0
+        cardColor:
+          type: integer
+          format: int32
+        clinicId:
+          type: string
+          format: uuid
+        createdAt:
+          type: integer
+          format: int64
+        deletedAt:
+          type: integer
+          format: int64
+        dob:
+          type: string
+          pattern: "\\d{4}-\\d{2}-\\d{2}"
+        email:
+          type: string
+          maxLength: 200
+          minLength: 0
+        familyHeadId:
+          type: string
+          format: uuid
+        fullName:
+          type: string
+          maxLength: 120
+          minLength: 0
+        gender:
+          type: string
+        id:
+          type: string
+          format: uuid
+        medicalHistory:
+          type: string
+          maxLength: 4000
+          minLength: 0
+        patientNo:
+          type: string
+        phone:
+          type: string
+          pattern: "\\+?[0-9 ]{7,16}"
+        remindersOptOut:
+          type: boolean
+        updatedAt:
+          type: integer
+          format: int64
+        version:
+          type: integer
+          format: int32
+      required:
+      - fullName
+    PaymentDto:
+      type: object
+      properties:
+        amountPaise:
+          type: integer
+          format: int64
+        clinicId:
+          type: string
+          format: uuid
+        id:
+          type: string
+          format: uuid
+        idempotencyKey:
+          type: string
+        invoiceId:
+          type: string
+          format: uuid
+        kind:
+          type: string
+        mode:
+          type: string
+          pattern: CASH|UPI|CARD|BANK
+        recordedAt:
+          type: integer
+          format: int64
+        recordedBy:
+          type: string
+          format: uuid
+        reference:
+          type: string
+          maxLength: 100
+          minLength: 0
+      required:
+      - mode
+    PlanDto:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        createdAt:
+          type: integer
+          format: int64
+        estimatePaise:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlanItemDto"
+        patientId:
+          type: string
+          format: uuid
+        status:
+          type: string
+        title:
+          type: string
+          maxLength: 120
+          minLength: 0
+        updatedAt:
+          type: integer
+          format: int64
+      required:
+      - patientId
+    PlanItemDto:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        doneVisitId:
+          type: string
+          format: uuid
+        estPaise:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        planId:
+          type: string
+          format: uuid
+        procedureId:
+          type: string
+          format: uuid
+        sequence:
+          type: integer
+          format: int32
+        status:
+          type: string
+        surface:
+          type: string
+        toothFdi:
+          type: integer
+          format: int32
+      required:
+      - procedureId
+    PlanItemPatch:
+      type: object
+      properties:
+        doneVisitId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          minLength: 1
+      required:
+      - status
+    PlanStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          minLength: 1
+      required:
+      - status
+    ProcedureDto:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        code:
+          type: string
+        defaultMinutes:
+          type: integer
+          format: int32
+        defaultPaise:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        taxBasisPoints:
+          type: integer
+          format: int32
+    PullResponse:
+      type: object
+      properties:
+        changes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Change"
+        hasMore:
+          type: boolean
+        nextSince:
+          type: integer
+          format: int64
+    PushOp:
+      type: object
+      properties:
+        entity:
+          type: string
+          minLength: 1
+        entityId:
+          type: string
+          format: uuid
+        idempotencyKey:
+          type: string
+          minLength: 1
+        operation:
+          type: string
+          minLength: 1
+        payload:
+          $ref: "#/components/schemas/JsonNode"
+      required:
+      - entity
+      - entityId
+      - idempotencyKey
+      - operation
+      - payload
+    PushRequest:
+      type: object
+      properties:
+        ops:
+          type: array
+          items:
+            $ref: "#/components/schemas/PushOp"
+          maxItems: 200
+          minItems: 0
+      required:
+      - ops
+    PushResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PushResult"
+    PushResult:
+      type: object
+      properties:
+        code:
+          type: string
+        idempotencyKey:
+          type: string
+        message:
+          type: string
+        status:
+          type: string
+    RefreshRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          minLength: 1
+      required:
+      - refreshToken
+    Reschedule:
+      type: object
+      properties:
+        endAt:
+          type: integer
+          format: int64
+        startAt:
+          type: integer
+          format: int64
+        version:
+          type: integer
+          format: int32
+    RoleDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        system:
+          type: boolean
+    RxDto:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        dentistId:
+          type: string
+          format: uuid
+        id:
+          type: string
+          format: uuid
+        issuedAt:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ItemDto"
+          minItems: 1
+        notes:
+          type: string
+          maxLength: 1000
+          minLength: 0
+        patientId:
+          type: string
+          format: uuid
+        visitId:
+          type: string
+          format: uuid
+      required:
+      - items
+      - patientId
+    SignupRequest:
+      type: object
+      properties:
+        clinicName:
+          type: string
+          maxLength: 120
+          minLength: 0
+        deviceId:
+          type: string
+        deviceName:
+          type: string
+        email:
+          type: string
+          format: email
+          minLength: 1
+        ownerName:
+          type: string
+          maxLength: 120
+          minLength: 0
+        password:
+          type: string
+          maxLength: 128
+          minLength: 8
+        phone:
+          type: string
+          pattern: "\\+?[0-9]{7,15}"
+      required:
+      - clinicName
+      - email
+      - ownerName
+      - password
+    StatusChange:
+      type: object
+      properties:
+        status:
+          type: string
+          minLength: 1
+      required:
+      - status
+    ToothRecordDto:
+      type: object
+      properties:
+        clinicId:
+          type: string
+          format: uuid
+        condition:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          format: uuid
+        note:
+          type: string
+          maxLength: 500
+          minLength: 0
+        patientId:
+          type: string
+          format: uuid
+        recordedAt:
+          type: integer
+          format: int64
+        recordedBy:
+          type: string
+          format: uuid
+        surface:
+          type: string
+        toothFdi:
+          type: integer
+          format: int32
+        visitId:
+          type: string
+          format: uuid
+      required:
+      - condition
+    Verification:
+      type: object
+      properties:
+        checked:
+          type: integer
+          format: int64
+        firstBrokenId:
+          type: integer
+          format: int64
+        valid:
+          type: boolean
+    VisitDto:
+      type: object
+      properties:
+        appointmentId:
+          type: string
+          format: uuid
+        clinicId:
+          type: string
+          format: uuid
+        complaint:
+          type: string
+          maxLength: 2000
+          minLength: 0
+        dentistId:
+          type: string
+          format: uuid
+        diagnosis:
+          type: string
+          maxLength: 2000
+          minLength: 0
+        id:
+          type: string
+          format: uuid
+        notes:
+          type: string
+          maxLength: 8000
+          minLength: 0
+        patientId:
+          type: string
+          format: uuid
+        updatedAt:
+          type: integer
+          format: int64
+        version:
+          type: integer
+          format: int32
+        visitedAt:
+          type: integer
+          format: int64
+      required:
+      - patientId
+  securitySchemes:
+    bearer:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

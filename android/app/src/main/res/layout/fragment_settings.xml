@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_4">
+
+        <TextView
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clinic" />
+
+        <TextView
+            android:id="@+id/clinic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <TextView
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:text="@string/theme" />
+
+        <RadioGroup
+            android:id="@+id/theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/theme_system"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/touch"
+                android:text="@string/theme_system" />
+
+            <RadioButton
+                android:id="@+id/theme_light"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/touch"
+                android:text="@string/theme_light" />
+
+            <RadioButton
+                android:id="@+id/theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/touch"
+                android:text="@string/theme_dark" />
+        </RadioGroup>
+
+        <TextView
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:text="@string/clinic_location" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/lat"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/touch"
+                android:layout_weight="1"
+                android:hint="@string/latitude"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal|numberSigned" />
+
+            <EditText
+                android:id="@+id/lng"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/touch"
+                android:layout_marginStart="@dimen/space_2"
+                android:layout_weight="1"
+                android:hint="@string/longitude"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal|numberSigned" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_location"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/touch"
+                android:text="@string/save" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:text="@string/security" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/app_lock"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:text="@string/app_lock" />
+
+        <TextView
+            android:id="@+id/app_lock_unavailable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_lock_unavailable"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/export_label"
+            style="@style/Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:text="@string/data_export" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/export_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/export"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:text="@string/export_patients" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:layout_marginTop="@dimen/space_6"
+            android:text="@string/reset_ui_prefs" />
+    </LinearLayout>
+</ScrollView>

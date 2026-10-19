@@ -1,0 +1,34 @@
+# Local stack: docker compose -f infra/docker-compose.yml up -d
+# Dummy credentials only. Override via infra/.env (see .env.example) for anything shared.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: dentacloud
+      POSTGRES_USER: ${DB_OWNER_USER:-dentacloud}
+      POSTGRES_PASSWORD: ${DB_OWNER_PASSWORD:-dentacloud}
+      APP_DB_USER: ${DB_APP_USER:-dentacloud_app}
+      APP_DB_PASSWORD: ${DB_APP_PASSWORD:-dentacloud_app}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d dentacloud"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pgdata:

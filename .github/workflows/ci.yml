@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      # Testcontainers uses the runner's Docker; the Android SDK is preinstalled on ubuntu-latest.
+      - name: Backend tests
+        run: ./gradlew :backend:test
+      - name: Android unit tests and debug build
+        run: ./gradlew :android:app:testDebugUnitTest :android:app:assembleDebug
+      # Dependency scan (PRD 16): fails on HIGH/CRITICAL in the gradle.lockfile files; accepted ones live in .trivyignore.
+      - name: Dependency scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          exit-code: '1'
+          trivyignores: .trivyignore
+          skip-dirs: build,.gradle
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/'

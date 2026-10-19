@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.dentacloud.app.ui.splash.SplashFragment" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dentacloud.app.ui.auth.LoginFragment"
+        android:label="@string/login" />
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.dentacloud.app.ui.auth.SignupFragment"
+        android:label="@string/signup_title" />
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.dentacloud.app.ui.dashboard.DashboardFragment"
+        android:label="@string/nav_today" />
+
+    <fragment
+        android:id="@+id/patientListFragment"
+        android:name="com.dentacloud.app.ui.patients.PatientListFragment"
+        android:label="@string/nav_patients" />
+
+    <fragment
+        android:id="@+id/patientFormStep1Fragment"
+        android:name="com.dentacloud.app.ui.patients.PatientFormStep1Fragment"
+        android:label="@string/register_step1" />
+
+    <fragment
+        android:id="@+id/patientFormStep2Fragment"
+        android:name="com.dentacloud.app.ui.patients.PatientFormStep2Fragment"
+        android:label="@string/register_step2" />
+
+    <fragment
+        android:id="@+id/patientDetailFragment"
+        android:name="com.dentacloud.app.ui.patients.PatientDetailFragment"
+        android:label="@string/patient" />
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.dentacloud.app.ui.calendar.CalendarFragment"
+        android:label="@string/nav_calendar" />
+
+    <fragment
+        android:id="@+id/bookAppointmentFragment"
+        android:name="com.dentacloud.app.ui.calendar.BookAppointmentFragment"
+        android:label="@string/book_appointment" />
+
+    <fragment
+        android:id="@+id/appointmentDetailFragment"
+        android:name="com.dentacloud.app.ui.calendar.AppointmentDetailFragment"
+        android:label="@string/appointment">
+        <argument
+            android:name="appointmentId"
+            app:argType="string" />
+        <deepLink app:uri="dentacloud://appointment/{appointmentId}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="com.dentacloud.app.ui.billing.BillingFragment"
+        android:label="@string/billing" />
+
+    <fragment
+        android:id="@+id/invoiceDetailFragment"
+        android:name="com.dentacloud.app.ui.billing.InvoiceDetailFragment"
+        android:label="@string/invoice" />
+
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.dentacloud.app.ui.chart.ChartFragment"
+        android:label="@string/dental_chart" />
+
+    <fragment
+        android:id="@+id/visitFragment"
+        android:name="com.dentacloud.app.ui.visits.VisitFragment"
+        android:label="@string/visit" />
+
+    <fragment
+        android:id="@+id/planFragment"
+        android:name="com.dentacloud.app.ui.plans.PlanFragment"
+        android:label="@string/treatment_plans" />
+
+    <fragment
+        android:id="@+id/prescriptionFragment"
+        android:name="com.dentacloud.app.ui.prescriptions.PrescriptionFragment"
+        android:label="@string/prescription" />
+
+    <fragment
+        android:id="@+id/clinicMapFragment"
+        android:name="com.dentacloud.app.ui.maps.ClinicMapFragment"
+        android:label="@string/clinic_location" />
+
+    <fragment
+        android:id="@+id/tipsFragment"
+        android:name="com.dentacloud.app.ui.tips.TipsFragment"
+        android:label="@string/dental_tips" />
+
+    <fragment
+        android:id="@+id/asyncTaskLabFragment"
+        android:name="com.dentacloud.app.ui.lab.AsyncTaskLabFragment"
+        android:label="@string/lab_title" />
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.dentacloud.app.ui.settings.MoreFragment"
+        android:label="@string/nav_more" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.dentacloud.app.ui.settings.SettingsFragment"
+        android:label="@string/settings" />
+</navigation>

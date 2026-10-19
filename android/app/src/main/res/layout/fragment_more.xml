@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_2">
+
+        <TextView
+            android:id="@+id/who"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_3"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+        <Button
+            android:id="@+id/settings"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:gravity="start|center_vertical"
+            android:text="@string/settings" />
+
+        <Button
+            android:id="@+id/map"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:gravity="start|center_vertical"
+            android:text="@string/clinic_location" />
+
+        <Button
+            android:id="@+id/tips"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:gravity="start|center_vertical"
+            android:text="@string/dental_tips" />
+
+        <Button
+            android:id="@+id/lab"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:gravity="start|center_vertical"
+            android:text="@string/lab_title" />
+
+        <Button
+            android:id="@+id/logout"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/touch"
+            android:gravity="start|center_vertical"
+            android:text="@string/logout"
+            android:textColor="?attr/colorError" />
+    </LinearLayout>
+</ScrollView>

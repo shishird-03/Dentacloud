@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design tokens (PRD 12): neutral gray base, one calm teal primary, semantic status colors -->
+<resources>
+    <color name="primary">#0F766E</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#CCFBF1</color>
+    <color name="on_primary_container">#042F2E</color>
+    <color name="surface">#FAFAFA</color>
+    <color name="on_surface">#1F2937</color>
+    <color name="surface_variant">#F1F5F9</color>
+    <color name="on_surface_variant">#475569</color>
+    <color name="outline">#CBD5E1</color>
+    <color name="error">#B91C1C</color>
+
+    <color name="status_booked">#2563EB</color>
+    <color name="status_arrived">#D97706</color>
+    <color name="status_in_chair">#7C3AED</color>
+    <color name="status_done">#15803D</color>
+    <color name="status_no_show">#B91C1C</color>
+    <color name="status_cancelled">#64748B</color>
+
+    <!-- Dental chart conditions -->
+    <color name="cond_sound">#FFFFFF</color>
+    <color name="cond_caries">#DC2626</color>
+    <color name="cond_filled">#2563EB</color>
+    <color name="cond_crown">#CA8A04</color>
+    <color name="cond_missing">#9CA3AF</color>
+    <color name="cond_rct">#7C3AED</color>
+    <color name="cond_extract">#EA580C</color>
+    <color name="cond_implant">#0D9488</color>
+    <color name="cond_fractured">#92400E</color>
+    <color name="cond_bridge">#4338CA</color>
+
+    <color name="launcher_bg">#0F766E</color>
+
+    <color name="banner_warning">#FEF3C7</color>
+    <color name="on_banner_warning">#78350F</color>
+</resources>

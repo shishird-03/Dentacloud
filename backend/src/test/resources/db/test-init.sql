@@ -1,0 +1,1 @@
+CREATE ROLE dentacloud_app LOGIN PASSWORD 'dentacloud_app' NOSUPERUSER NOBYPASSRLS;

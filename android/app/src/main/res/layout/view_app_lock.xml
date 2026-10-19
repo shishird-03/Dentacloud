@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Opaque cover over the whole app while the biometric lock is up; it swallows touches. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/space_6">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_locked"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/unlock"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/touch"
+        android:layout_marginTop="@dimen/space_4"
+        android:text="@string/unlock" />
+</LinearLayout>

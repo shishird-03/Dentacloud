@@ -1,0 +1,7 @@
+# Accepted findings. Each needs a reason and a revisit trigger; rescan before every release.
+
+# spring-webmvc 6.2.19: fixed only in Spring Framework 7 (Spring Boot 4), a major migration.
+# Not reachable: the API uses no XsltView and no Server-Sent Events with views (checked 2026-10-19:
+# no XsltView, SseEmitter or text/event-stream in backend/src). Revisit on the Boot 4 upgrade.
+CVE-2026-47884
+CVE-2026-47890

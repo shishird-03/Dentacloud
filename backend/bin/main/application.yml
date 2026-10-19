@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: dentacloud
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    # The API connects as the non-owner app role so row-level security applies.
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/dentacloud}
+    username: ${DB_APP_USER:dentacloud_app}
+    password: ${DB_APP_PASSWORD:dentacloud_app}
+  flyway:
+    # Migrations run as the schema owner.
+    user: ${DB_OWNER_USER:dentacloud}
+    password: ${DB_OWNER_PASSWORD:dentacloud}
+    placeholders:
+      appRole: ${DB_APP_USER:dentacloud_app}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none   # Flyway owns the schema
+  mvc:
+    problemdetails:
+      enabled: true
+
+dentacloud:
+  # Dev-only dummy secret; production sets JWT_SECRET.
+  jwt-secret: ${JWT_SECRET:dev-only-secret-change-me-dev-only-secret}
+  access-ttl: 15m
+  refresh-ttl: 30d
+  field-enc-key: ${FIELD_ENC_KEY:}
+  blind-index-key: ${BLIND_INDEX_KEY:}
+  msg91:
+    auth-key: ${MSG91_AUTH_KEY:}
+    template-id: ${MSG91_TEMPLATE_ID:}
+  firebase:
+    credentials: ${FIREBASE_CREDENTIALS:}   # path to a service-account JSON
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  writer-with-order-by-keys: true

@@ -1,0 +1,142 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.openapi.generator)
+}
+
+// Crashlytics switches on only when the Firebase config exists. google-services.json is a project
+// secret (gitignored), so builds without it stay green and simply ship with crash reporting off.
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
+}
+
+// Retrofit interfaces and DTOs come from the API contract (PRD 7); never edit them by hand.
+def generatedApi = layout.buildDirectory.dir('generated/openapi')
+openApiGenerate {
+    generatorName = 'java'
+    library = 'retrofit2'
+    inputSpec = rootProject.file('docs/openapi.yaml').toURI().toString()
+    outputDir = generatedApi.get().asFile.path
+    apiPackage = 'com.dentacloud.app.data.remote.api'
+    modelPackage = 'com.dentacloud.app.data.remote.dto'
+    invokerPackage = 'com.dentacloud.app.data.remote'
+    globalProperties = [modelDocs: 'false', apiDocs: 'false', modelTests: 'false', apiTests: 'false']
+    ignoreFileOverride = file('openapi-generator-ignore').path
+    configOptions = [serializationLibrary: 'gson', dateLibrary: 'java8', annotationLibrary: 'none',
+                     openApiNullable: 'false', hideGenerationTimestamp: 'true', documentationProvider: 'none',
+                     useJakartaEe: 'true', sourceFolder: 'src/main/java']
+    typeMappings = [JsonNode: 'Object']
+    importMappings = [JsonNode: 'java.lang.Object']
+}
+
+android {
+    namespace 'com.dentacloud.app'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId 'com.dentacloud.app'
+        minSdk 26
+        targetSdk 37
+        versionCode 1
+        versionName '0.1.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        // 10.0.2.2 is the host machine from the emulator; a real phone needs -PapiBaseUrl=http://<pc-lan-ip>:8080/
+        buildConfigField 'String', 'API_BASE_URL', "\"${project.findProperty('apiBaseUrl') ?: 'http://10.0.2.2:8080/'}\""
+        manifestPlaceholders = [cleartext: 'false', crashlytics: 'true']
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ['room.schemaLocation': "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // local backend over plain HTTP (release is HTTPS only); developers' crashes never reach Crashlytics
+            manifestPlaceholders = [cleartext: 'true', crashlytics: 'false']
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        // The release build (R8, not debuggable) signed with the debug key so it installs locally, for
+        // cold-start measurement and smoke tests. Never distributed: the real signing config is M9.
+        benchmark {
+            initWith release
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [cleartext: 'true', crashlytics: 'true']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+
+    sourceSets {
+        main.java.srcDirs += generatedApi.map { it.dir('src/main/java') }
+        // Exported Room schemas feed MigrationTest. Robolectric only sees merged app assets, so they
+        // ride along in debug builds (a few KB of JSON); release builds never include them.
+        debug.assets.srcDirs += files("$projectDir/schemas")
+        androidTest.assets.srcDirs += files("$projectDir/schemas")
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all { maxHeapSize = '1g' }
+    }
+}
+
+tasks.named('preBuild') { dependsOn 'openApiGenerate' }
+
+dependencies {
+    // Annotations on the generated DTOs; compile-time only, ART ignores missing annotation classes.
+    compileOnly libs.jakarta.annotation
+    implementation libs.retrofit
+    implementation libs.retrofit.gson
+    implementation libs.retrofit.scalars
+    implementation libs.okhttp
+    implementation libs.security.crypto
+    implementation libs.biometric
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.crashlytics
+    implementation libs.work.runtime
+    implementation libs.osmdroid
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.recyclerview
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+    implementation libs.lifecycle.service
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+    implementation libs.hilt.android
+    annotationProcessor libs.hilt.compiler
+    implementation libs.uuid.creator
+    implementation libs.gson
+
+    testImplementation libs.junit4
+    testImplementation libs.mockito
+    testImplementation libs.robolectric
+    testImplementation libs.core.testing
+    testImplementation libs.androidx.test.core
+    testImplementation libs.room.testing
+    testImplementation libs.okhttp.mockwebserver
+    testImplementation libs.work.testing
+
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.espresso.contrib
+}

@@ -1,0 +1,6 @@
+# Keep only the Retrofit interfaces, DTOs and the two helpers they import.
+**/*
+!**/api/*.java
+!**/dto/*.java
+!**/CollectionFormats.java
+!**/StringUtil.java

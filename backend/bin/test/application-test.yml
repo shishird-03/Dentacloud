@@ -1,0 +1,5 @@
+dentacloud:
+  sync-lag: 0s
+  field-enc-key: ft2/lMB5NAxulFnq/2gcoEsxoRVY1vzWoQYhxU7InfQ=   # test-only dummy master key
+  outbox:
+    enabled: false   # tests drive OutboxWorker.runOnce() themselves
